@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Nelda ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Background video -->
+<video autoplay muted loop id="bgVideo">
+  <source src="video.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<!-- Romantic popup -->
+<div id="popup" class="popup">
+💖 You make my world beautiful Nelda 💖
+</div>
+
+<!-- Background music -->
+<audio autoplay loop>
+  <source src="music.mp3" type="audio/mp3">
+</audio>
+
+<div class="container">
+
+  <h1 class="name">Happy Birthday Nelda 🎂❤️</h1>
+  <p class="subtitle">
+    You are the best thing that ever happened to me.  
+    I love you forever.
+  </p>
+
+  <!-- Countdown -->
+  <h2 id="countdown"></h2>
+
+  <!-- Envelope letter -->
+  <button onclick="openLetter()">Open Your Letter 💌</button>
+
+</div>
+
+<div id="letter" class="letter">
+  <div class="letter-content">
+    <h2>My Love Nelda ❤️</h2>
+    <p>
+      From the moment you came into my life, everything became brighter.  
+      Your smile, your laugh, your love — everything about you is perfect.  
+      I’m grateful for you every single day.
+
+      Happy Birthday my queen 👑❤️
+    </p>
+    <button onclick="closeLetter()">Close</button>
+  </div>
+</div>
+
+<h2>Our Love Story 💕</h2>
+<div class="carousel-container">
+  <div class="carousel">
+
+    <div class="photo">
+      <img src="images/pic1.jpeg">
+      <p>I❤️</p>
+    </div>
+
+    <div class="photo">
+      <img src="images/pic2.jpeg">
+      <p>Love you💫</p>
+    </div>
+
+    <div class="photo">
+      <img src="images/pic3.jpeg">
+      <p>my queen💖 </p>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
