@@ -1,26 +1,28 @@
-/* General */
+/* General Styles */
 body{
   margin:0;
   font-family: Arial, sans-serif;
   background: linear-gradient(to right,#ffd6e7,#ffe9f3);
   text-align:center;
+  overflow-x: hidden;
 }
 
-/* Container spacing */
+/* Container */
 .container{
   margin-top:140px;
   padding-top:40px;
+  z-index:2;
+  position: relative;
 }
 
-/* Background video */
+/* Background Video */
 #bgVideo{
   position:fixed;
   top:0;
   left:0;
   width:100%;
   height:100%;
-  object-fit:cover; /* fits video inside screen fully */
-  background:black;
+  object-fit:cover;
   z-index:-999;
 }
 .overlay{
@@ -33,7 +35,7 @@ body{
   z-index:-1;
 }
 
-/* Animated name */
+/* Animated Name */
 .name{
   font-size:3em;
   color:#ff4d88;
@@ -44,8 +46,10 @@ body{
   50%{transform:scale(1.1);}
   100%{transform:scale(1);}
 }
-
-.subtitle{font-size:20px;color:#444;}
+.subtitle{
+  font-size:20px;
+  color:#444;
+}
 
 /* Button */
 button{
@@ -57,9 +61,13 @@ button{
   font-size:18px;
   cursor:pointer;
   margin-top:20px;
+  transition: transform 0.2s;
+}
+button:hover{
+  transform: scale(1.1);
 }
 
-/* Envelope letter */
+/* Letter Modal */
 .letter{
   display:none;
   position:fixed;
@@ -68,14 +76,24 @@ button{
   width:100%;
   height:100%;
   background:rgba(0,0,0,0.5);
-  z-index: 9999;  /* VERY HIGH to stay above everything */
+  z-index: 9999;
 }
 .letter-content{
-  background:white;
-  padding:40px;
-  border-radius:15px;
-  margin:100px auto;
-  width:300px;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  margin: 60px auto;
+  width: 80%;
+  max-width: 700px;       /* makes it large on desktop */
+  max-height: 80vh;       /* prevents it from exceeding screen height */
+  overflow-y: auto;       /* enables scrolling if text is too long */
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  text-align: left;       /* better for long paragraphs */
+}
+.letter-content p{
+  font-size: 18px;
+  line-height: 1.8;
+  color: #444;
 }
 
 /* Popup */
@@ -89,9 +107,11 @@ button{
   padding:15px 30px;
   border-radius:20px;
   display:none;
+  font-size:18px;
+  z-index:1000;
 }
 
-/* Falling hearts */
+/* Falling Hearts */
 .heart{
   position:fixed;
   top:-10px;
@@ -101,18 +121,18 @@ button{
   z-index:999;
 }
 @keyframes fall{
-  0%{transform:translateY(-10px);opacity:1;}
-  100%{transform:translateY(100vh);opacity:0;}
+  0%{transform:translateY(-10px) scale(1);opacity:1;}
+  100%{transform:translateY(100vh) scale(0.8);opacity:0;}
 }
 
-/* 3D Floating Carousel */
+/* 3D Carousel */
 .carousel-container{
   perspective:1000px;
   width:320px;
   height:400px;
- margin: 40px auto 80px auto; /* bottom margin so it doesn't collide with footer */
-  position: relative; /* removed absolute */
-  z-index: 1; /* behind popups and letters */
+  margin: 40px auto 80px auto;
+  position: relative;
+  z-index: 1;
 }
 .carousel{
   width:100%;
@@ -133,12 +153,12 @@ button{
   box-shadow:0 15px 40px rgba(0,0,0,0.3);
   text-align:center;
   border:4px solid #ff4d88;
-   z-index: 0; /* behind popups */
+  z-index:0;
 }
 .photo img{
   width:100%;
-  height:100%; /* make images fully fit the frame */
-  object-fit:contain; /* fit any image size */
+  height:100%;
+  object-fit:contain;
   border-radius:10px;
 }
 .photo:hover{
