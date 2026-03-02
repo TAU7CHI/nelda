@@ -1,5 +1,5 @@
 // Countdown
-const birthday = new Date("March 03, 2026 00:00:00").getTime();
+const birthday = new Date("March 03, 2026 07:00:00").getTime();
 setInterval(()=>{
   const now = new Date().getTime();
   const distance = birthday-now;
