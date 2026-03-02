@@ -1,0 +1,151 @@
+/* General */
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right,#ffd6e7,#ffe9f3);
+  text-align:center;
+}
+
+/* Container spacing */
+.container{
+  margin-top:140px;
+  padding-top:40px;
+}
+
+/* Background video */
+#bgVideo{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover; /* fits video inside screen fully */
+  background:black;
+  z-index:-999;
+}
+.overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(255,214,231,0.4);
+  z-index:-1;
+}
+
+/* Animated name */
+.name{
+  font-size:3em;
+  color:#ff4d88;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+.subtitle{font-size:20px;color:#444;}
+
+/* Button */
+button{
+  padding:15px 25px;
+  border:none;
+  border-radius:30px;
+  background:#ff4d88;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+  margin-top:20px;
+}
+
+/* Envelope letter */
+.letter{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  z-index: 9999;  /* VERY HIGH to stay above everything */
+}
+.letter-content{
+  background:white;
+  padding:40px;
+  border-radius:15px;
+  margin:100px auto;
+  width:300px;
+}
+
+/* Popup */
+.popup{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#ff4d88;
+  color:white;
+  padding:15px 30px;
+  border-radius:20px;
+  display:none;
+}
+
+/* Falling hearts */
+.heart{
+  position:fixed;
+  top:-10px;
+  color:#ff4d88;
+  font-size:20px;
+  animation:fall linear forwards;
+  z-index:999;
+}
+@keyframes fall{
+  0%{transform:translateY(-10px);opacity:1;}
+  100%{transform:translateY(100vh);opacity:0;}
+}
+
+/* 3D Floating Carousel */
+.carousel-container{
+  perspective:1000px;
+  width:320px;
+  height:400px;
+ margin: 40px auto 80px auto; /* bottom margin so it doesn't collide with footer */
+  position: relative; /* removed absolute */
+  z-index: 1; /* behind popups and letters */
+}
+.carousel{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform 1s;
+}
+.photo{
+  position:absolute;
+  width:200px;
+  height:260px;
+  left:60px;
+  top:60px;
+  background:white;
+  padding:10px;
+  border-radius:15px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.3);
+  text-align:center;
+  border:4px solid #ff4d88;
+   z-index: 0; /* behind popups */
+}
+.photo img{
+  width:100%;
+  height:100%; /* make images fully fit the frame */
+  object-fit:contain; /* fit any image size */
+  border-radius:10px;
+}
+.photo:hover{
+  animation:sparkle 0.6s ease;
+}
+@keyframes sparkle{
+  0%{box-shadow:0 0 5px #fff;}
+  50%{box-shadow:0 0 25px #ff4d88;}
+  100%{box-shadow:0 0 5px #fff;}
+}

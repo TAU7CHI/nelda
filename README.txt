@@ -1,0 +1,1 @@
+Add your video as video.mp4, music as music.mp3, and your photos in images folder (pic1.jpg, pic2.jpg, pic3.jpg).
