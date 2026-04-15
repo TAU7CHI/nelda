@@ -1,72 +1,102 @@
-// Countdown
-const birthday = new Date("March 03, 2026 07:00:00").getTime();
-setInterval(()=>{
-  const now = new Date().getTime();
-  const distance = birthday-now;
-  const days = Math.floor(distance/(1000*60*60*24));
-  const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-  document.getElementById("countdown").innerHTML=
-    "⏳ "+days+" days "+hours+" hours until your special day ❤️";
-},1000);
+ /* ── CONFIG ─────────────────────────────────────────────────
+     Change this to the real date you started dating.
+     Format: "YYYY-MM-DD"
+  ──────────────────────────────────────────────────────────── */
+  const START_DATE = "2022-03-10";
 
-// Letter
-function openLetter(){document.getElementById("letter").style.display="block";}
-function closeLetter(){document.getElementById("letter").style.display="none";}
+  /* ── DAY COUNTER ─────────────────────────────────────────── */
+  const startDate = new Date(START_DATE);
+  const today     = new Date();
+  const days      = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+  document.getElementById("dayCount").textContent = days > 0 ? days : 0;
 
-// Popup
-setTimeout(()=>{document.getElementById("popup").style.display="block";},2000);
+  /* ── COLOUR THEMES ───────────────────────────────────────── */
+  const bg = document.getElementById("bg");
+  const themes = [
+    "linear-gradient(270deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1)",   // pink-purple
+    "linear-gradient(270deg,#a18cd1,#fbc2eb,#84fab0,#8fd3f4)",   // purple-mint
+    "linear-gradient(270deg,#84fab0,#8fd3f4,#43e97b,#38f9d7)",   // green-teal
+    "linear-gradient(270deg,#f093fb,#f5576c,#fd746c,#ff9068)",   // coral-red
+    "linear-gradient(270deg,#4facfe,#00f2fe,#43e97b,#38f9d7)",   // sky-blue
+    "linear-gradient(270deg,#fda085,#f6d365,#ffecd2,#fcb69f)",   // warm-orange
+  ];
+  let themeIndex = 0;
 
-// Falling hearts
-function createHeart(){
-  const heart=document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML="❤️";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.animationDuration=(3+Math.random()*4)+"s";
-  heart.style.fontSize=(15+Math.random()*25)+"px";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),7000);
-}
-setInterval(createHeart,300);
+  function cycleTheme() {
+    themeIndex = (themeIndex + 1) % themes.length;
+    bg.style.background       = themes[themeIndex];
+    bg.style.backgroundSize   = "800% 800%";
+    bg.style.animation        = "none";
+    /* Force reflow so the animation restart works */
+    void bg.offsetWidth;
+    bg.style.animation        = "gradientMove 15s ease infinite";
+  }
+  setInterval(cycleTheme, 5000);
 
-// 3D Carousel
-const carousel=document.querySelector(".carousel");
-const photos=document.querySelectorAll(".photo");
-const total=photos.length;
-let angle=0,current=0;
+  /* ── FLOATING ELEMENTS ───────────────────────────────────── */
+  const container = document.getElementById("floating-container");
 
-// Arrange photos in circle
-photos.forEach((photo,i)=>{
-  photo.style.transform=`rotateY(${i*(360/total)}deg) translateZ(300px)`;
-});
+  const messages = [
+    "I love you ❤️",
+    "You are my everything 💕",
+    "Forever yours 💖",
+    "My queen 👑",
+    "You complete me ❤️",
+    "I cherish you 💘",
+    "You are my happiness 😊",
+    "My heart is yours ❤️",
+  ];
+  const symbols = ["❤️","🌸","💖","🌹","💕","✨","💗","🦋","🌺","💝"];
 
-// Auto rotate every 4 seconds
-setInterval(()=>{current++;rotateCarousel();},4000);
+  function createFloating() {
+    const el = document.createElement("div");
+    el.classList.add("floating");
 
-function rotateCarousel(){
-  angle=current*-(360/total);
-  carousel.style.transform=`rotateY(${angle}deg)`;
-}
+    el.innerText = Math.random() > 0.5
+      ? messages[Math.floor(Math.random() * messages.length)]
+      : symbols [Math.floor(Math.random() * symbols.length)];
 
-// Swipe support
-let startX=0;
-document.addEventListener("touchstart",e=>{startX=e.touches[0].clientX;});
-document.addEventListener("touchend",e=>{
-  let endX=e.changedTouches[0].clientX;
-  if(startX>endX+50) current++;
-  if(startX<endX-50) current--;
-  rotateCarousel();
-});
-// script.js
-const bgMusic = document.querySelector("audio");
+    el.style.left            = (Math.random() * 95) + "vw";
+    const dur                = 5 + Math.random() * 5;
+    el.style.animationDuration = dur + "s";
+    el.style.fontSize        = (14 + Math.random() * 18) + "px";
 
-document.addEventListener("click", () => {
-  bgMusic.play().catch(err => {
-    console.log("Music play blocked:", err);
+    container.appendChild(el);
+    setTimeout(() => el.remove(), (dur + 0.5) * 1000);
+  }
+
+  setInterval(createFloating, 500);
+
+  /* ── LETTER CONTROLS ─────────────────────────────────────── */
+  function showLetter() {
+    document.getElementById("letter").classList.add("open");
+    const content = document.getElementById("mainContent");
+    content.style.opacity   = "0";
+    content.style.transform = "translate(-50%, -60%)";
+  }
+
+  function closeLetter() {
+    document.getElementById("letter").classList.remove("open");
+    const content = document.getElementById("mainContent");
+    content.style.opacity   = "1";
+    content.style.transform = "translate(-50%, -50%)";
+  }
+/* ── BACKGROUND MUSIC ───────────────────────────── */
+const music = document.getElementById("bgMusic");
+
+// Try autoplay
+window.addEventListener("load", () => {
+  music.muted = false; // unmute after load
+  music.volume = 0.5;
+
+  music.play().catch(() => {
+    console.log("Autoplay blocked, waiting for click...");
   });
-}, { once: true }); // only triggers once
-function openLetter(){
-  document.getElementById("letter").style.display="block";
-  const bgMusic = document.querySelector("audio");
-  bgMusic.play().catch(err => console.log(err));
-}
+});
+
+// Fallback: play on first click anywhere
+document.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+  }
+}, { once: true });
